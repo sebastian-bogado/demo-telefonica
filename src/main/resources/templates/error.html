@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layouts/master}">
+<head>
+	<title>Error page</title>
+</head>
+<body>
+<h1>Ha surgido un error inesperado</h1>
+<br/>
+<h3 th:text="${errorCode}"></h3>
+<br/>
+<p th:text="${errorMessage}"></p>
+</body>
+</html>

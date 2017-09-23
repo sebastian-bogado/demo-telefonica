@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<!-- Delete Confirmation Dialog -->
+<div th:fragment="delete-confirmation" class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirmar Accion
+            </div>
+            <div class="modal-body">
+                Â¿Esta seguro que desea eliminar este item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger btn-ok">Eliminar</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+</div>
+<!-- Delete Confirmation Dialog - END -->
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+# suppress inspection "UnusedProperty" for whole file
+# Server
+server.port=8080
+# JPA
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.datasource.url=jdbc:sqlserver://10.150.4.54:49618;databaseName=axionmp;
+spring.datasource.username=axionmp
+spring.datasource.password=password(if8Te/QjCCTdXEE4kIIwkA==)
+spring.jpa.database-platformt=org.hibernate.dialect.SQLServerDialect
+#Proxy
+proxy.http.host=localhost
+proxy.http.port=808
+proxy.http.exceptions=www.google.com|*.mercadopago.com
+proxy.https.host=
+proxy.https.port=
+proxy.ftp.host=
+proxy.ftp.port=
+proxy.ftp.exceptions=
+proxy.socks.host=
+proxy.socks.port=

@@ -1,0 +1,208 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <!--<script th:src="@{/js/pages/transaction_filter.js}"></script>-->
+
+</head>
+<body>
+<th:block layout:fragment="page-title">Dashboard</th:block>
+
+<h1 class="page-header" layout:fragment="page-header">Bienvenido</h1>
+
+<div id="wrapper" layout:fragment="page-content">
+    <div class="panel-body">
+        <h1 class="page-header">Transacciones</h1>
+        <form id="filter-transaction-form" th:object="${transactionFilter}" th:action="@{/admin/transactions/list_transactions}" action="#" method="get">
+
+            <!-- / .col-lg-2 -->
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="form-group" th:classappend="${#fields.hasErrors('site')} ? 'has-error'">
+                    <label class="control-label" for="site">Site:</label>
+                    <input type=text class="form-control" th:field="*{site}" id="site"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('site')}" th:errors="*{site}">Help block with error</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="externalReferenceSite">External reference:</label>
+                    <input type=text class="form-control" th:field="*{externalReferenceSite}" id="externalReferenceSite"/>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <!-- / .form-group -->
+                <div class="form-group" th:classappend="${#fields.hasErrors('fuelPosition')} ? 'has-error'">
+                    <label class="control-label" for="fuelPosition">Fuel position</label>
+                    <input type=text class="form-control" th:field="*{fuelPosition}" id="fuelPosition"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('fuelPosition')}" th:errors="*{fuelPosition}">Help block with error</span>
+                </div>
+                <!-- / .form-group -->
+
+                <!--Estado-->
+                <!--Perfiles table multiple select-->
+                <div>
+                    <label class="control-label" for="estados">Status</label>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('estados')} ? 'has-error'">
+                    <select id="estados" th:field="*{estados}" multiple="multiple"
+                            class="form-control bootstrap-multiple">
+                        <option th:each="est : ${estados}" th:value="${est.name}"
+                                th:text="${est.name}">
+                            <input type="checkbox" th:each="est : ${estados}" th:value="${est.name}"
+                                   th:text="${est.name}"/>
+                        </option>
+                    </select>
+                    <span class="help-block" th:if="${#fields.hasErrors('estados')}"
+                          th:errors="*{estados}">Help block with error</span>
+                </div>
+
+
+            </div>
+
+            <!-- / .col-lg-2 -->
+            <div class="col-lg-5 col-lg-offset-1">
+                <!--Fechas de creacion de las transacciones-->
+
+                <div>
+                    <label class="control-label" for="fechaCreacionFrom">Fecha de creaci&oacute;n desde:</label>
+                </div>
+                <div id="divFechaCreacionFrom" class="form-group input-group date">
+                    <input type=text class="form-control" th:field="*{fechaCreacionFrom}" id="fechaCreacionFrom" readonly/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+
+
+                <div>
+                    <label class="control-label" for="fechaPagoFrom">Fecha de pago desde :</label>
+                </div>
+                <!--Fechas de pago-->
+                <div id="divFechaPagoFrom" class="form-group input-group date">
+                    <input type=text class="form-control" th:field="*{fechaPagoFrom}" id="fechaPagoFrom" readonly/><span class="input-group-addon" readonly/>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div>
+                    <label class="control-label" for="fechaCreacionTo">Fecha de creaci&oacute;n hasta:</label>
+                </div>
+                <div id="divFechaCreacionTo" class="form-group input-group date">
+                    <input type=text class="form-control" th:field="*{fechaCreacionTo}" id="fechaCreacionTo" readonly/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+
+                <div>
+                    <label class="control-label" for="fechaPagoTo">Fecha de pago hasta :</label>
+                </div>
+                <div id="divFechaPagoTo" class="form-group input-group date">
+                    <input type=text class="form-control" th:field="*{fechaPagoTo}" id="fechaPagoTo" readonly/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <!-- / .form-group -->
+            </div>
+
+            <div class="col-lg-10 col-lg-offset-1">
+                <!-- / .col-lg-3 -->
+                <div class="pull-right">
+                    <button type="button" id="buscar" onclick="sendForm();" class="btn btn-primary">Buscar</button>
+                    <button type="button" class="btn btn-default" onClick="window.location.replace('/admin')">Cancelar
+                    </button>
+                </div>
+            </div>
+            <!-- / .col-lg-3 -->
+
+        </form>
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+<th:block layout:fragment="extra-js">
+
+    <script th:src="@{/js/pages/transaction.js}"></script>
+    <!-- Validation script-->
+
+    <script th:src="@{/vendor/bootstrap-multiselect/bootstrap-multiselect.js}"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="#"
+          th:href="@{/vendor/bootstrap-multiselect/bootstrap-multiselect.css}"/>
+
+
+    <!--<script type="text/javascript" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/bower_components/moment/min/moment.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}" />-->
+    <link rel="stylesheet" th:href="@{/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css}"/>
+
+    <script th:src="@{/vendor/jquery_validator/jquery.validate.min.js}"></script>
+    <script th:src="@{/vendor/jquery_validator/additional-methods.min.js}"></script>
+
+
+    <script type="text/javascript">
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi\u00e9rcoles', 'Jueves', 'Viernes', 'S\u00e1bado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Juv', 'Vie', 'Sa'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+
+        $(function () {
+                $('#divFechaCreacionFrom').datetimepicker({ defaultDate: new Date(), ignoreReadonly: true, format: 'DD/MM/YYYY' });
+                $('#divFechaCreacionTo').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    defaultDate: new Date(),
+                    ignoreReadonly: true,
+                    format: 'DD/MM/YYYY'
+                });
+                $("#divFechaCreacionFrom").on("dp.change", function (e) {
+                    $('#divFechaCreacionTo').data("DateTimePicker").minDate(e.date);
+                });
+                $("#divFechaCreacionTo").on("dp.change", function (e) {
+                    $('#divFechaCreacionFrom').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+
+
+
+        $(function () {
+                $('#divFechaPagoFrom').datetimepicker({ defaultDate: new Date(), ignoreReadonly: true, format: 'DD/MM/YYYY' });
+                $('#divFechaPagoTo').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    defaultDate: new Date(),
+                    ignoreReadonly: true,
+                    format: 'DD/MM/YYYY'
+                });
+                $("#divFechaPagoFrom").on("dp.change", function (e) {
+                    $('#divFechaPagoTo').data("DateTimePicker").minDate(e.date);
+                });
+                $("#divFechaPagoTo").on("dp.change", function (e) {
+                    $('#divFechaPagoFrom').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+
+    </script>
+
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master}">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Gilbarco - 500</title>
+    <style>
+        .vertical-center {
+            min-height: 100%;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper" layout:fragment="wrapper" class="container">
+    <div class="container vertical-center">
+        <div class="jumbotron">
+            <h1>500 <i class="fa fa-warning"></i>
+            </h1>
+            <p th:text="${errorMessage}"></p>
+            <p class="pull-right"><a href="/" class="btn btn-success"><i class="fa fa-home" aria-hidden="true"></i> Ir
+                al Inicio</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

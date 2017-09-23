@@ -1,0 +1,82 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main}">
+<head>
+<title></title>
+</head>
+<body>
+	<th:block layout:fragment="page-title">Dashboard</th:block>
+
+	<div id="wrapper" layout:fragment="page-content">
+		<div class="panel-body">
+			<h1 class="page-header">
+				<th:block>Informaci&oacute;n Transacci&oacute;n</th:block>
+			</h1>
+			<div class="col-lg-8 col-lg-offset-2">
+				<div class="form-group">
+					<label class="control-label" for="name">ID:</label> <span
+						class="control-label" th:text="${transaction.id}"></span>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="name">T&iacute;tulo:</label> <span
+						class="control-label" th:text="${transaction.titulo}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">External reference:</label> <span
+						class="control-label" th:text="${transaction.externalReferenceSite}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">Monto:</label>
+					<span
+						class="control-label" th:text="'$'+${transaction.unitPrice}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">Id de pago :</label> <span
+						class="control-label" th:text="${transaction.idPagoMercadoPago}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">Estaci&oacute;n:</label> <span
+						class="control-label" th:text="${transaction.site}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">Posici&oacute;n de carga:</label> <span
+						class="control-label" th:text="${transaction.fuelPosition}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">Fecha de creaci&oacute;n:</label> <span
+						class="control-label" th:text="${transaction.fechaDesdeFormat}"></span>
+				</div>
+				<!-- / .form-group -->
+				<div class="form-group">
+					<label class="control-label" for="name">Fecha de pago:</label> <span
+						class="control-label" th:text="${transaction.fechaPagoFormat}"></span>
+				</div>
+				<!-- / .form-group -->
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<!-- / .col-lg-3 -->
+					<div class="pull-right">
+						<button type="button"  class="btn btn-default" onClick="window.history.back();">
+							Volver
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.panel-body -->
+	</div>
+
+	<th:block layout:fragment="extra-js">
+
+	</th:block>
+
+</body>
+</html>

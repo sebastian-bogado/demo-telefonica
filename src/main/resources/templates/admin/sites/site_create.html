@@ -1,0 +1,92 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <script th:src="@{/js/pages/sites.js}"></script>
+</head>
+<body>
+<th:block layout:fragment="page-title">Dashboard</th:block>
+<div id="wrapper" layout:fragment="page-content">
+    <div class="panel-body">
+        <h1 class="page-header">
+            <th:block th:if="not ${read_only}">Por favor, ingrese los datos del Site</th:block>
+            <th:block th:if="${read_only}">Información Site</th:block>
+        </h1>
+        <div class="col-lg-12" th:if="${error_message}">
+            <div class="alert alert-danger" role="alert" th:text="#{${error_message}}">
+                Ha ocurrido un error al querer crear el site.
+            </div>
+            <!-- / .alert alert-success -->
+        </div>
+        <form id="alta-site-form" th:object="${site}" th:action="@{/admin/sites/create}" action="#" method="post">
+            <input type="hidden" th:field="*{id}" class="form-control"/>
+
+            <!-- / .col-lg-3 -->
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="form-group" th:classappend="${#fields.hasErrors('number')} ? 'has-error'">
+                        <label class="control-label" for="siteNumber">Estaci&oacute;n:</label>
+                        <input type="number" class="form-control" th:readonly="${read_only}" th:field="*{number}"
+                               id="siteNumber" min="0"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Help block with error</span>
+                    </div>
+                    <!-- / .form-group -->
+                    <div class="form-group" th:classappend="${#fields.hasErrors('siteName')} ? 'has-error'">
+                        <label class="control-label" for="siteNumber">Nombre de la estaci&oacute;n:</label>
+                        <input type=text class="form-control" th:readonly="${read_only}" th:field="*{siteName}"
+                               id="siteName"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('siteName')}" th:errors="*{siteName}">Help block with error</span>
+                    </div>
+                    <!-- / .form-group -->
+                    <div class="form-group" th:classappend="${#fields.hasErrors('ip')} ? 'has-error'">
+                        <label class="control-label" for="ip">Dominio de la estaci&oacute;n</label>
+                        <input type=text class="form-control" th:readonly="${read_only}" th:field="*{ip}" id="ip"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('ip')}" th:errors="*{ip}">Help block with error</span>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('puerto')} ? 'has-error'">
+                        <label class="control-label" for="puerto">Puerto:</label>
+                        <input type="number" class="form-control" th:readonly="${read_only}" th:field="*{puerto}"
+                               id="puerto" min="1" max="65535"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('puerto')}" th:errors="*{puerto}">Help block with error</span>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('timeout')} ? 'has-error'">
+                        <label class="control-label" for="timeout">Timeout (en milisegundos):</label>
+                        <input type="number" class="form-control" th:readonly="${read_only}" th:field="*{timeout}"
+                               id="timeout" min="500" max="300000"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('timeout')}" th:errors="*{timeout}">Help block with error</span>
+                    </div>
+                    <!-- / .form-group -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <!-- / .col-lg-3 -->
+                    <div class="pull-right">
+                        <button type="button" id="guardar" th:if="not ${read_only}" onclick="sendForm();" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-default" onClick="window.location.replace('/admin/sites')">
+                            Volver
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+<th:block layout:fragment="extra-js">
+    <script th:src="@{/js/pages/sites.js}"></script>
+    <!-- Validation script-->
+
+    <script th:src="@{/vendor/bootstrap-multiselect/bootstrap-multiselect.js}"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="#"
+          th:href="@{/vendor/bootstrap-multiselect/bootstrap-multiselect.css}"/>
+
+    <script th:src="@{/vendor/jquery_validator/jquery.validate.min.js}"></script>
+    <script th:src="@{/vendor/jquery_validator/additional-methods.min.js}"></script>
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  lang="es"
+	  layout:decorate="~{layouts/master}">
+<head>
+	<title></title>
+</head>
+<body>
+<div id="wrapper" layout:fragment="wrapper">
+	<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">SERVIDOR PAGO MOVIL </a>
+		</div>
+		<!-- /.navbar-header -->
+
+		<ul class="nav navbar-top-links navbar-right">
+			<!-- /.dropdown -->
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+				</a>
+				<ul class="dropdown-menu dropdown-user">
+					<li><a href="javascript: document.logoutForm.submit()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+					<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+						<input hidden type="submit" value="Sign Out"/>
+					</form>
+				</ul> <!-- /.dropdown-user --></li>
+			<!-- /.dropdown -->
+		</ul>
+		<!-- /.navbar-top-links -->
+
+		<div class="navbar-default sidebar" role="navigation">
+			<div class="sidebar-nav navbar-collapse">
+				<ul class="nav" id="side-menu">
+					<li><a class="active" href="/admin/sites" th:href="@{/admin/sites}"><i
+							class="fa fa-dashboard fa-fw"></i>Administrador de estaciones</a></li>
+					<li><a class="active" href="/admin/users" th:href="@{/admin/users}"><i
+							class="fa fa-dashboard fa-fw"></i>Admininistrador de usuarios</a></li>
+					<li><a class="active" href="/admin/perfiles" th:href="@{/admin/perfiles}"><i
+							class="fa fa-dashboard fa-fw"></i>Administrador de perfiles</a></li>
+					<li><a class="active" href="/admin/transactions/reporte" th:href="@{/admin/transactions/reporte}"><i
+							class="fa fa-dashboard fa-fw"></i>Ver transacciones</a></li>
+					<li><a class="active" href="admin/reporte/actividad_usuario/reporte_actividad_user" th:href="@{/admin/reporte/actividad_usuario/reporte_actividad_user}"><i
+							class="fa fa-dashboard fa-fw"></i>Reporte de actividad de usuarios</a></li>
+				</ul>
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+	</nav>
+	<!-- Page Content -->
+	<div id="page-wrapper">
+		<div class="container-fluid">
+			<!-- Page Heading -->
+			<div class="row" layout:fragment="page-content">
+				<div class="col-lg-12">
+					<div class="alert alert-info alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<i class="fa fa-info-circle"></i> <strong>Like SB Admin?</strong> Try out <a
+							href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin
+						2</a> for additional features!
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.container-fluid -->
+
+	</div>
+	<!-- /#page-wrapper -->
+</div>
+</body>
+</html>

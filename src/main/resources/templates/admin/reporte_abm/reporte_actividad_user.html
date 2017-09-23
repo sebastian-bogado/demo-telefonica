@@ -1,0 +1,73 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layouts/main}">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css"
+		  href="/bower_components/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"/>
+</head>
+<body>
+<th:block layout:fragment="page-title">Dashboard</th:block>
+<div id="wrapper" layout:fragment="page-content">
+	<!-- Page Body -->
+	<div class="panel-body">
+		<h1 class="page-header">Reporte Actividad Usuarios</h1>
+		<!-- /.box-header -->
+		<div class="box-body">
+			<table id="reporte_user" class="table table-bordered">
+				<thead>
+				<tr>
+					<th style="width: 10px">Id</th>
+					<th>Usuario que realiz&oacute; la acci&oacute;n</th>
+					<th>Fecha</th>
+					<th>ABM</th>
+					<th>Tipo de transacci&oacute;n</th>
+					<th>Mensaje</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="log : ${logs}">
+					<td th:text="${log.id}">1</td>
+					<td th:text="${log.username}"></td>
+					<td th:text="${log.logDate}"></td>
+					<td th:text="${log.abm.name}"></td>
+					<td th:text="${log.transaccionABM.name}"></td>
+					<td th:text="${log.mensaje}"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- /.panel-body -->
+</div>
+
+<th:block layout:fragment="extra-js">
+
+	<!-- Datatable + Plugins -->
+	<script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="/bower_components/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="/bower_components/jszip/dist/jszip.min.js"></script>
+	<script src="/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			var table = $('#reporte_user').DataTable({
+				processing: true,
+				dom: 'Bfrtip',
+				buttons: [
+					'excelHtml5',
+				],
+				"language": {
+					"url": "/bower_components/datatables.net/language/spanish.json"
+				}
+			});
+		});
+	</script>
+
+</th:block>
+</body>
+</html>

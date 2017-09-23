@@ -1,0 +1,89 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+    <title></title>
+</head>
+<body>
+<th:block layout:fragment="page-title">Dashboard</th:block>
+
+
+<div id="wrapper" layout:fragment="page-content">
+    <!-- Page Body -->
+    <div class="panel-body">
+        <h1 class="page-header">Transacciones</h1>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="transactions_table" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>External reference</th>
+                    <th>Fecha</th>
+                    <th>Title</th>
+                    <th>Site</th>
+                    <th>Fuel position</th>
+                    <th>Estado</th>
+                    <th>Id MP</th>
+                    <th>Monto</th>
+                    <th class="non-exportable" style="width: 40px">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tran : ${transactions}">
+                    <td th:text=" '\'' + ${tran.externalReferenceSite} + '\''" ></td>
+                    <!--<td th:text="${tran.fechaCreacion}"></td>-->
+                    <td th:text="${tran.fechaDesdeFormat}"></td>
+                    <td th:text="${tran.titulo}"></td>
+                    <td th:text="'S: '+${tran.site}"></td>
+                    <td th:text="${tran.fuelPosition}"></td>
+                    <td th:text="${tran.state}"></td>
+                    <td th:text="${tran.idPagoMercadoPago != null} ?'\''+${tran.idPagoMercadoPago}+'\'' : ''"></td>
+                    <td th:text= "'$'+${tran.unitPrice}"></td>
+                    <td>
+                        <a href="#" title="Ver Detalles" th:href=@{/admin/transactions/view/{id}(id=${tran.id})}> <i
+                                class="fa fa-search"></i> </a>
+                        <!--<a href="#" title="Eliminar" th:attr="data-href=@{/admin/personas/eliminar/{id}(id=${per.id})}" data-toggle="modal" data-target="#confirm-delete"> <i class="fa fa-remove"></i> </a>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+<th:block layout:fragment="extra-js">
+
+    <!-- Datatable + Plugins -->
+    <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/bower_components/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/bower_components/jszip/dist/jszip.min.js"></script>
+    <script src="/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#transactions_table').DataTable({
+                processing: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: jQuery("th:not(.non-exportable)")
+                        }
+                    }
+                ],
+                "language": {
+                    "url": "/bower_components/datatables.net/language/spanish.json"
+                }
+
+            });
+        });
+    </script>
+
+</th:block>
+</body>
+</html>

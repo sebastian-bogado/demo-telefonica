@@ -1,0 +1,179 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+<head>
+<!--     <script th:src="@{/js/pages/user_activity_filter.js}"></script> -->
+
+</head>
+<body>
+<th:block layout:fragment="page-title">Dashboard</th:block>
+
+<h1 class="page-header" layout:fragment="page-header"></h1>
+
+<div id="wrapper" layout:fragment="page-content">
+    <div class="panel-body">
+        <h1 class="page-header">Reporte Actividad Usuarios</h1>
+        <form id="alta-site-form" th:object="${logAbmFilter}" th:action="@{/admin/reporte/actividad_usuario/reporte_actividad_user}" action="#" method="post">
+
+            <!-- / .col-lg-2 -->
+            <div class="col-lg-5 col-lg-offset-1">
+                <!--Usernames-->
+                <div>
+                    <label class="control-label" for="userName">Usuarios:</label>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
+                    <select id="userName" th:field="*{userName}" multiple="multiple"
+                            class="form-control bootstrap-multiple">
+                        <option th:each="us : ${users}" th:value="${us.userName}"
+                                th:text="${us.userName}">
+                            <input type="checkbox" th:each="us : ${users}" th:value="${us.userName}"
+                                   th:text="${est.userName}"/>
+                        </option>
+                    </select>
+                    <span class="help-block" th:if="${#fields.hasErrors('userName')}"
+                          th:errors="*{userName}">Help block with error</span>
+                </div>
+
+
+
+                <!--Fecha desde-->
+                <div>
+                    <label class="control-label" for="dateFrom">Desde:</label>
+                </div>
+                <div id="divDateFrom"  class="form-group input-group date">
+                    <input type=text class="form-control" th:field="*{dateFrom}" id="dateFrom" readonly/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <!--Fin Fecha desde-->
+                <!--Tipo de transacciones-->
+                <div>
+                    <label class="control-label" for="abms">ABMS:</label>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('abms')} ? 'has-error'">
+                    <select id="abms" th:field="*{abms}" multiple="multiple"
+                            class="form-control bootstrap-multiple">
+                        <option th:each="abm : ${abms}" th:value="${abm.name}"
+                                th:text="${abm.name}">
+                            <input type="checkbox" th:each="abm : ${abms}" th:value="${abm.name}"
+                                   th:text="${abm.name}"/>
+                        </option>
+                    </select>
+                    <span class="help-block" th:if="${#fields.hasErrors('abms')}"
+                          th:errors="*{abms}">Help block with error</span>
+                </div>
+                <!--Tipo de transacciones-->
+            </div>
+
+            <div class="col-lg-5">
+                <!--Tipo de transacciones-->
+                <div>
+                    <label class="control-label" for="transactionType">Tipo de transacci&oacute;n realizada:</label>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('transactionType')} ? 'has-error'">
+                    <select id="transactionType" th:field="*{transactionType}" multiple="multiple"
+                            class="form-control bootstrap-multiple">
+                        <option th:each="tra : ${transations}" th:value="${tra.name}"
+                                th:text="${tra.name}">
+                            <input type="checkbox" th:each="tra : ${transations}" th:value="${tra.name}"
+                                   th:text="${tra.name}"/>
+                        </option>
+                    </select>
+                    <span class="help-block" th:if="${#fields.hasErrors('transactionType')}"
+                          th:errors="*{transactionType}">Help block with error</span>
+                </div>
+                <!--Tipo de transacciones-->
+                <!--Fecha hasta-->
+                <div>
+                    <label class="control-label" for="dateTo">Fecha de creaci&oacute;n hasta:</label>
+                </div>
+                <div id="divDateTo" class="form-group input-group date">
+                    <input type=text class="form-control" th:field="*{dateTo}" id="dateTo" readonly/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <!--Fecha hasta-->
+            </div>
+
+            <div class="col-lg-10 col-lg-offset-1">
+                <!-- / .col-lg-3 -->
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <button type="button" class="btn btn-default" onClick="window.location.replace('/admin')">Cancelar
+                    </button>
+                </div>
+            </div>
+
+            <!-- / .col-lg-3 -->
+
+        </form>
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+<th:block layout:fragment="extra-js">
+
+    <script th:src="@{/js/pages/users.js}"></script>
+    <!-- Validation script-->
+
+    <script th:src="@{/vendor/bootstrap-multiselect/bootstrap-multiselect.js}"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="#"
+          th:href="@{/vendor/bootstrap-multiselect/bootstrap-multiselect.css}"/>
+
+
+    <!--<script type="text/javascript" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/bower_components/moment/min/moment.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+    <!--<link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}" />-->
+    <link rel="stylesheet" th:href="@{/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css}" />
+
+    <script th:src="@{/vendor/jquery_validator/jquery.validate.min.js}"></script>
+    <script th:src="@{/vendor/jquery_validator/additional-methods.min.js}"></script>
+
+
+
+    <script type="text/javascript">
+            $.datepicker.regional['es'] = {
+                             closeText: 'Cerrar',
+                             prevText: '<Ant',
+                             nextText: 'Sig>',
+                             currentText: 'Hoy',
+                             monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                             monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                             dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi\u00e9rcoles', 'Jueves', 'Viernes', 'S\u00e1bado'],
+                             dayNamesShort: ['Dom','Lun','Mar','Mie','Juv','Vie','Sab'],
+                             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+                             weekHeader: 'Sm',
+                             dateFormat: 'dd/mm/yy',
+                             firstDay: 1,
+                             isRTL: false,
+                             showMonthAfterYear: false,
+                             yearSuffix: ''
+             };
+             $.datepicker.setDefaults($.datepicker.regional['es']);
+
+             $(function () {
+                $('#divDateFrom').datetimepicker({ defaultDate: new Date(), ignoreReadonly: true, format: 'DD/MM/YYYY' });
+                $('#divDateTo').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    defaultDate: new Date(),
+                    ignoreReadonly: true,
+                    format: 'DD/MM/YYYY'
+                });
+                $("#divDateFrom").on("dp.change", function (e) {
+                    $('#divDateTo').data("DateTimePicker").minDate(e.date);
+                });
+                $("#divDateTo").on("dp.change", function (e) {
+                    $('#divDateFrom').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+
+     </script>
+</th:block>
+
+</body>
+</html>
